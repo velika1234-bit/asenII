@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { HistoricalCase, Choice } from "../data/cases";
+import { MapFadeAnimation } from "./MapFadeAnimation";
 
 interface CaseCardProps {
   caseData: HistoricalCase;
@@ -69,22 +70,45 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-700/50 to-transparent" />
       </div>
 
-      {/* AI-generated illustration */}
-      {!imageError && (
-        <div className="mb-5 rounded-xl overflow-hidden border border-amber-800/30 shadow-lg shadow-black/40">
-          <img
-            src={caseData.image}
-            alt={caseData.title}
-            className="w-full h-48 md:h-64 object-cover"
-            onError={() => setImageError(true)}
-          />
-        </div>
+      {/* Hero animation (replaces main image when placement = "hero") */}
+      {caseData.mapAnimation?.placement === "hero" ? (
+        <MapFadeAnimation
+          from={caseData.mapAnimation.from}
+          to={caseData.mapAnimation.to}
+          labelFrom={caseData.mapAnimation.labelFrom}
+          labelTo={caseData.mapAnimation.labelTo}
+          caption={caseData.mapAnimation.caption}
+          className="mb-5"
+        />
+      ) : (
+        !imageError && (
+          <div className="mb-5 rounded-xl overflow-hidden border border-amber-800/30 shadow-lg shadow-black/40">
+            <img
+              src={caseData.image}
+              alt={caseData.title}
+              className="w-full h-48 md:h-64 object-cover"
+              onError={() => setImageError(true)}
+            />
+          </div>
+        )
       )}
 
       {/* Description */}
       <div className="bg-stone-900/50 border border-amber-800/30 rounded-lg p-4 mb-5 text-stone-200 leading-relaxed text-sm md:text-base">
         {caseData.description}
       </div>
+
+      {/* Below-description animation */}
+      {caseData.mapAnimation?.placement === "below-description" && (
+        <MapFadeAnimation
+          from={caseData.mapAnimation.from}
+          to={caseData.mapAnimation.to}
+          labelFrom={caseData.mapAnimation.labelFrom}
+          labelTo={caseData.mapAnimation.labelTo}
+          caption={caseData.mapAnimation.caption}
+          className="mb-5"
+        />
+      )}
 
       {/* Map info */}
       <div className="bg-stone-900/40 border border-stone-700/40 rounded-lg p-3 mb-4 flex items-start gap-3">
