@@ -59,7 +59,7 @@ export function LoginScreen({ onEnter }: LoginScreenProps) {
 
           <p className="text-stone-300 leading-relaxed mb-6 text-sm md:text-base">
             Преди да встъпиш в ролята на великия цар, кажи ни своето<br />
-            <span className="text-amber-300 font-semibold">благородно владетелско Ваше</span>
+            <span className="text-amber-300 font-semibold">благородническо име</span>
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,7 +71,7 @@ export function LoginScreen({ onEnter }: LoginScreenProps) {
                   setName(e.target.value);
                   setError("");
                 }}
-                placeholder="Въведи своето ime..."
+                placeholder="Въведи своето благородническо име..."
                 maxLength={40}
                 className="w-full bg-stone-950/80 border border-amber-800/50 focus:border-amber-500/70 rounded-xl px-4 py-3 text-amber-100 placeholder-stone-600 font-serif text-lg outline-none transition-colors text-center tracking-wide"
                 autoFocus
