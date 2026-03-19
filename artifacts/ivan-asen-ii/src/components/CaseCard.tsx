@@ -47,7 +47,7 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 py-6 animate-fade-in">
+    <div className="w-full max-w-3xl mx-auto px-3 sm:px-4 py-4 sm:py-6 animate-fade-in">
       {/* Header */}
       <div className="text-center mb-5">
         <div className="inline-flex items-center gap-2 text-amber-500/60 text-xs tracking-[0.3em] uppercase mb-2 font-serif">
