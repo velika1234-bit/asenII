@@ -92,11 +92,11 @@ export default function App() {
     <div className="min-h-screen bg-stone-950 text-stone-100 overflow-x-hidden" style={background}>
       <div className="min-h-screen flex flex-col">
         {/* Top bar */}
-        <header className="text-center py-3 border-b border-amber-900/30">
-          <h1 className="text-amber-400/80 font-serif text-sm tracking-[0.3em] uppercase">
-            ⚜️ Иван Асен II — Историческа Игра ⚜️
+        <header className="text-center py-2 sm:py-3 border-b border-amber-900/30 px-4">
+          <h1 className="text-amber-400/80 font-serif text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.3em] uppercase leading-tight">
+            <span className="hidden sm:inline">⚜️ </span>Иван Асен II — Историческа Игра<span className="hidden sm:inline"> ⚜️</span>
           </h1>
-          <p className="text-stone-600 text-xs mt-0.5 font-serif">{playerName}</p>
+          <p className="text-stone-600 text-[10px] sm:text-xs mt-0.5 font-serif truncate">{playerName}</p>
         </header>
 
         {/* Stats */}

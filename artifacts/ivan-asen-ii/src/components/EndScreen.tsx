@@ -30,7 +30,7 @@ function StatResult({ icon, label, value }: { icon: string; label: string; value
   return (
     <div className="flex items-center gap-3 py-2">
       <span className="text-lg w-6 text-center shrink-0">{icon}</span>
-      <span className="text-stone-300 font-serif text-sm w-28 shrink-0">{label}</span>
+      <span className="text-stone-300 font-serif text-xs sm:text-sm w-20 sm:w-28 shrink-0">{label}</span>
       <div className="flex-1 h-2.5 bg-stone-900/60 rounded-full border border-stone-700/40 overflow-hidden">
         <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${clamped}%`, backgroundColor: color }} />
       </div>
