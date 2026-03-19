@@ -87,7 +87,7 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
       </div>
 
       {/* Map info */}
-      <div className="bg-stone-900/40 border border-stone-700/40 rounded-lg p-3 mb-6 flex items-start gap-3">
+      <div className="bg-stone-900/40 border border-stone-700/40 rounded-lg p-3 mb-4 flex items-start gap-3">
         <span className="text-xl mt-0.5 shrink-0">🗺️</span>
         <div>
           <div className="text-stone-400 text-xs uppercase tracking-widest mb-1 font-serif">
@@ -96,6 +96,26 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
           <p className="text-stone-300 text-sm">{caseData.mapDescription}</p>
         </div>
       </div>
+
+      {/* Video link — shown only when case has one */}
+      {caseData.videoUrl && (
+        <div className="bg-red-950/30 border border-red-800/30 rounded-lg p-3 mb-5 flex items-center gap-3">
+          <span className="text-2xl shrink-0">▶️</span>
+          <div>
+            <div className="text-red-400/70 text-xs uppercase tracking-widest mb-0.5 font-serif">
+              Научи повече
+            </div>
+            <a
+              href={caseData.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-red-300 hover:text-red-200 text-sm underline underline-offset-2 transition-colors"
+            >
+              Битката при Клокотница — документален видеоматериал
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Choices */}
       {!showOutcome ? (
