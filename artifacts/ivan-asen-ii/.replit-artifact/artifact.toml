@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Иван Асен II - Историческа Игра"
+version = "1.0.0"
+id = "artifacts/ivan-asen-ii"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23072
+
+[services.development]
+run = "pnpm --filter @workspace/ivan-asen-ii run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ivan-asen-ii", "run", "build" ]
+publicDir = "artifacts/ivan-asen-ii/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23072"
+BASE_PATH = "/"
