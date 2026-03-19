@@ -202,14 +202,14 @@ export const cases: HistoricalCase[] = [
     description:
       "Епирският деспот Теодор Комнин нарушава мирния договор и нахлува дълбоко в България. Той вече е превзел редица крепости и армията му е многочислена. Твоите военачалници спорят за тактиката при р. Марица - всяко грешно решение може да коства скъпо. На 9 март 1230 г. двете армии са лице в лице.",
     mapDescription: "Река Марица (Хеброс) - Клокотница, Тракия. Ключово поле на битката, 9 март 1230 г.",
-    image: "https://www.faktibg.com/wp-content/uploads/2025/03/img_67ceafffaee54.png",
+    image: "/images/case-7.png",
     mapAnimation: {
       from: "/images/map-1218.png",
       to: "/images/map-1230.png",
       labelFrom: "преди 1230 г.",
       labelTo: "след 1230 г.",
       caption: "България преди и след победата при Клокотница — анимация на териториалното разширение",
-      placement: "hero",
+      placement: "below-description",
     },
     choices: [
       {

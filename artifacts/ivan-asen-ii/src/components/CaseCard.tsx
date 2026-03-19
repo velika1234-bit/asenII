@@ -70,27 +70,15 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-700/50 to-transparent" />
       </div>
 
-      {/* Hero animation (replaces main image when placement = "hero") */}
-      {caseData.mapAnimation?.placement === "hero" ? (
-        <MapFadeAnimation
-          from={caseData.mapAnimation.from}
-          to={caseData.mapAnimation.to}
-          labelFrom={caseData.mapAnimation.labelFrom}
-          labelTo={caseData.mapAnimation.labelTo}
-          caption={caseData.mapAnimation.caption}
-          className="mb-5"
-        />
-      ) : (
-        !imageError && (
-          <div className="mb-5 rounded-xl overflow-hidden border border-amber-800/30 shadow-lg shadow-black/40">
-            <img
-              src={caseData.image}
-              alt={caseData.title}
-              className="w-full h-48 md:h-64 object-cover"
-              onError={() => setImageError(true)}
-            />
-          </div>
-        )
+      {!imageError && (
+        <div className="mb-5 rounded-xl overflow-hidden border border-amber-800/30 shadow-lg shadow-black/40">
+          <img
+            src={caseData.image}
+            alt={caseData.title}
+            className="w-full h-48 md:h-64 object-cover"
+            onError={() => setImageError(true)}
+          />
+        </div>
       )}
 
       {/* Description */}
@@ -98,16 +86,18 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
         {caseData.description}
       </div>
 
-      {/* Below-description animation */}
+      {/* Map fade animation — quarter size, centered */}
       {caseData.mapAnimation?.placement === "below-description" && (
-        <MapFadeAnimation
-          from={caseData.mapAnimation.from}
-          to={caseData.mapAnimation.to}
-          labelFrom={caseData.mapAnimation.labelFrom}
-          labelTo={caseData.mapAnimation.labelTo}
-          caption={caseData.mapAnimation.caption}
-          className="mb-5"
-        />
+        <div className="flex justify-center mb-5">
+          <MapFadeAnimation
+            from={caseData.mapAnimation.from}
+            to={caseData.mapAnimation.to}
+            labelFrom={caseData.mapAnimation.labelFrom}
+            labelTo={caseData.mapAnimation.labelTo}
+            caption={caseData.mapAnimation.caption}
+            className="w-1/4"
+          />
+        </div>
       )}
 
       {/* Map info */}
