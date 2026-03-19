@@ -86,7 +86,7 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
         {caseData.description}
       </div>
 
-      {/* Map fade animation — quarter size, centered */}
+      {/* Map fade animation — responsive size, centered */}
       {caseData.mapAnimation?.placement === "below-description" && (
         <div className="flex justify-center mb-5">
           <MapFadeAnimation
@@ -95,7 +95,7 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
             labelFrom={caseData.mapAnimation.labelFrom}
             labelTo={caseData.mapAnimation.labelTo}
             caption={caseData.mapAnimation.caption}
-            className="w-1/4"
+            className="w-2/5 sm:w-1/3 md:w-1/4"
           />
         </div>
       )}
