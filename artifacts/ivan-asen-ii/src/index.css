@@ -153,6 +153,37 @@
   animation: fade-in 0.4s ease-out both;
 }
 
+@keyframes parchment-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scaleY(0.97);
+    filter: brightness(0.65) sepia(0.5);
+  }
+  55% {
+    opacity: 1;
+    filter: brightness(1.06) sepia(0.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    filter: brightness(1) sepia(0);
+  }
+}
+
+.animate-parchment-reveal {
+  animation: parchment-reveal 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes case-flash {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-case-flash {
+  animation: case-flash 0.7s ease-out forwards;
+}
+
 @layer utilities {
   .toggle-elevate::before,
   .toggle-elevate-2::before {
