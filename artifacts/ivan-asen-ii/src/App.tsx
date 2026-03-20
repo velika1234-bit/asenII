@@ -6,6 +6,7 @@ import { CaseCard } from "./components/CaseCard";
 import { LoginScreen } from "./components/LoginScreen";
 import { IntroScreen } from "./components/IntroScreen";
 import { EndScreen } from "./components/EndScreen";
+import { useMedievalAmbience } from "./hooks/useMedievalAmbience";
 
 type GameState = "login" | "intro" | "playing" | "end";
 
@@ -29,6 +30,8 @@ export default function App() {
   const [stats, setStats] = useState(INITIAL_STATS);
   const [choiceIndices, setChoiceIndices] = useState<number[]>([]);
   const [mapOpen, setMapOpen] = useState(false);
+  const [flash, setFlash] = useState(false);
+  const { playing: musicPlaying, toggle: toggleMusic } = useMedievalAmbience();
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -59,11 +62,16 @@ export default function App() {
     setStats(newStats);
     setChoiceIndices((prev) => [...prev, choiceIndex]);
 
+    setFlash(true);
+    setTimeout(() => setFlash(false), 750);
+
     if (currentCase + 1 >= cases.length) {
-      setGameState("end");
+      setTimeout(() => setGameState("end"), 350);
     } else {
-      setCurrentCase((c) => c + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        setCurrentCase((c) => c + 1);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 280);
     }
   }
 
@@ -120,7 +128,53 @@ export default function App() {
       <div className="min-h-screen flex flex-col">
         {/* Top bar */}
         <header className="flex items-center py-2 sm:py-3 border-b border-amber-900/30 px-3 sm:px-4">
-          <div className="w-12 sm:w-16 shrink-0" />
+          {/* Music toggle */}
+          <div className="w-12 sm:w-16 shrink-0 flex flex-col items-center gap-0.5">
+            <button
+              onClick={toggleMusic}
+              title={musicPlaying ? "Изключи музиката" : "Включи средновековна музика"}
+              className="group relative focus:outline-none"
+            >
+              <div
+                style={{
+                  padding: "3px",
+                  background: musicPlaying
+                    ? "linear-gradient(135deg, #6b4a0e 0%, #c9942a 40%, #a0721a 60%, #6b4a0e 100%)"
+                    : "linear-gradient(135deg, #2a2a2a 0%, #444 50%, #2a2a2a 100%)",
+                  borderRadius: "4px",
+                  boxShadow: musicPlaying
+                    ? "0 0 0 1px #3d2a08, 0 0 8px rgba(201,148,42,0.4), 2px 3px 10px rgba(0,0,0,0.8)"
+                    : "0 0 0 1px #111, 2px 3px 10px rgba(0,0,0,0.8)",
+                  transition: "all 0.4s",
+                }}
+              >
+                <div
+                  style={{
+                    padding: "4px 5px",
+                    background: musicPlaying
+                      ? "linear-gradient(145deg, #e8c97a 0%, #c9a84c 50%, #d4aa60 100%)"
+                      : "linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 100%)",
+                    borderRadius: "2px",
+                    transition: "all 0.4s",
+                  }}
+                >
+                  <span style={{ fontSize: "14px", lineHeight: 1 }}>
+                    {musicPlaying ? "🎵" : "🔇"}
+                  </span>
+                </div>
+              </div>
+            </button>
+            <span
+              className="font-serif leading-none"
+              style={{
+                fontSize: "7px",
+                color: musicPlaying ? "#92711a" : "#555",
+                fontStyle: "italic",
+                marginTop: "2px",
+                transition: "color 0.4s",
+              }}
+            >{musicPlaying ? "звук вкл." : "без звук"}</span>
+          </div>
           <div className="flex-1 text-center min-w-0">
             <h1 className="text-amber-400/80 font-serif text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.3em] uppercase leading-tight">
               <span className="hidden sm:inline">⚜️ </span>Иван Асен II — Историческа Игра<span className="hidden sm:inline"> ⚜️</span>
@@ -211,6 +265,16 @@ export default function App() {
           </p>
         </footer>
       </div>
+
+      {/* Case transition flash */}
+      {flash && (
+        <div
+          className="fixed inset-0 z-30 pointer-events-none animate-case-flash"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(180,120,15,0.28) 0%, rgba(80,50,5,0.12) 50%, transparent 80%)",
+          }}
+        />
+      )}
 
       {/* Map lightbox */}
       {mapOpen && (
