@@ -16,8 +16,9 @@ function clamp(v: number) {
 }
 
 function getLiveMap(caseIndex: number): { src: string; year: string } {
-  if (caseIndex < 5) return { src: "/images/map-1218.png", year: "1218 г." };
-  if (caseIndex < 14) return { src: "/images/map-1230.png", year: "1230 г." };
+  if (caseIndex <= 1) return { src: "/images/map-boril.png", year: "при Борил" };
+  if (caseIndex <= 4) return { src: "/images/map-1218.png", year: "1218 г." };
+  if (caseIndex <= 13) return { src: "/images/map-1230.png", year: "1230 г." };
   return { src: "/images/map-1241.png", year: "1241 г." };
 }
 
@@ -117,14 +118,47 @@ export default function App() {
             </h1>
             <p className="text-stone-600 text-[10px] sm:text-xs mt-0.5 font-serif truncate">{playerName}</p>
           </div>
-          {/* Live map thumbnail */}
+          {/* Live map thumbnail — parchment frame */}
           <div className="w-12 sm:w-16 shrink-0 flex flex-col items-center gap-0.5">
-            <img
-              src={liveMap.src}
-              alt="Карта на царството"
-              className="w-10 sm:w-14 h-8 sm:h-10 object-cover rounded border border-amber-800/40 shadow-md transition-all duration-700"
-            />
-            <span className="text-amber-600/50 text-[7px] sm:text-[9px] font-serif leading-none">{liveMap.year}</span>
+            <div
+              style={{
+                padding: "3px",
+                background: "linear-gradient(135deg, #6b4a0e 0%, #c9942a 40%, #a0721a 60%, #6b4a0e 100%)",
+                borderRadius: "4px",
+                boxShadow: "0 0 0 1px #3d2a08, 2px 3px 10px rgba(0,0,0,0.8), inset 0 0 4px rgba(0,0,0,0.3)",
+              }}
+            >
+              <div
+                style={{
+                  padding: "2px",
+                  background: "linear-gradient(145deg, #e8c97a 0%, #c9a84c 30%, #b8943e 70%, #d4aa60 100%)",
+                  borderRadius: "2px",
+                  boxShadow: "inset 0 1px 3px rgba(0,0,0,0.25)",
+                }}
+              >
+                <img
+                  src={liveMap.src}
+                  alt="Карта на царството"
+                  className="block transition-all duration-700"
+                  style={{
+                    width: "38px",
+                    height: "30px",
+                    objectFit: "cover",
+                    borderRadius: "1px",
+                    filter: "sepia(35%) saturate(1.15) contrast(0.92) brightness(0.95)",
+                  }}
+                />
+              </div>
+            </div>
+            <span
+              className="font-serif leading-none"
+              style={{
+                fontSize: "7px",
+                color: "#92711a",
+                fontStyle: "italic",
+                marginTop: "2px",
+              }}
+            >{liveMap.year}</span>
           </div>
         </header>
 

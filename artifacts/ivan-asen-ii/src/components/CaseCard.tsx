@@ -114,25 +114,6 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
         </div>
       </div>
 
-      {/* Reference image — shown only when case has one */}
-      {caseData.referenceImageUrl && (
-        <div className="mb-5 rounded-xl overflow-hidden border border-amber-800/30 shadow-md shadow-black/30">
-          <img
-            src={caseData.referenceImageUrl}
-            alt={caseData.referenceImageCaption ?? "Исторически материал"}
-            className="w-full object-cover max-h-64"
-          />
-          {caseData.referenceImageCaption && (
-            <div className="bg-stone-900/80 px-3 py-2 flex items-center gap-2">
-              <span className="text-amber-600 text-sm">🖼️</span>
-              <p className="text-stone-400 text-xs font-serif italic">
-                {caseData.referenceImageCaption}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Video link — shown only when case has one */}
       {caseData.videoUrl && (
         <div className="bg-red-950/30 border border-red-800/30 rounded-lg p-3 mb-5 flex items-center gap-3">
