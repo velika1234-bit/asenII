@@ -78,7 +78,8 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
           <img
             src={caseData.image}
             alt={caseData.title}
-            className="w-full h-48 md:h-64 object-cover"
+            className="w-full object-contain"
+            style={{ maxHeight: "75vh" }}
             onError={() => setImageError(true)}
           />
         </div>

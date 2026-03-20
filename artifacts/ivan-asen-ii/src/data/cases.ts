@@ -209,14 +209,6 @@ export const cases: HistoricalCase[] = [
       "Епирският деспот Теодор Комнин нарушава мирния договор и нахлува дълбоко в България. Той вече е превзел редица крепости и армията му е многочислена. Твоите военачалници спорят за тактиката при р. Марица - всяко грешно решение може да коства скъпо. На 9 март 1230 г. двете армии са лице в лице.",
     mapDescription: "Река Марица (Хеброс) - Клокотница, Тракия. Ключово поле на битката, 9 март 1230 г.",
     image: "https://daserazhodim.wordpress.com/wp-content/uploads/2019/02/ivan-asen-ii-hudozhnik-vasil-goranov.jpg",
-    mapAnimation: {
-      from: "/images/map-1218.png",
-      to: "/images/map-1230.png",
-      labelFrom: "преди 1230 г.",
-      labelTo: "след 1230 г.",
-      caption: "България преди и след победата при Клокотница — анимация на териториалното разширение",
-      placement: "below-description",
-    },
     historicalChoice: 1,
     choices: [
       {
@@ -514,14 +506,6 @@ export const cases: HistoricalCase[] = [
       "Смъртта приближава. Синът ти Калиман е едва седемгодишен. Без опитен регент България може да изпадне в борби за власт. Изборът кого да оставиш начело ще определи съдбата на всичко, което си изградил през живота си.",
     mapDescription: "Второто Българско Царство в зенита на разширението си - 1241 г.",
     image: "/images/case-15.png",
-    mapAnimation: {
-      from: "/images/map-1230.png",
-      to: "/images/map-1241.png",
-      labelFrom: "1230 г.",
-      labelTo: "1241 г.",
-      caption: "България в зенита на мощта си (1230 г.) и след смъртта на Иван Асен II (1241 г.) — постепенно раздробяване",
-      placement: "below-description",
-    },
     historicalChoice: 0,
     choices: [
       {
