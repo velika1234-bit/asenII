@@ -19,15 +19,19 @@ export function LoginScreen({ onEnter }: LoginScreenProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12 relative overflow-hidden">
-      {/* Background decorative elements — hidden on very small screens */}
-      <div className="absolute inset-0 pointer-events-none select-none">
-        <div className="absolute top-6 left-6 text-amber-900/15 text-6xl sm:text-9xl hidden xs:block">⚜️</div>
-        <div className="absolute bottom-6 right-6 text-amber-900/15 text-6xl sm:text-9xl hidden xs:block">⚜️</div>
-        <div className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 text-amber-900/10 text-4xl sm:text-7xl hidden sm:block">⚔️</div>
-        <div className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 text-amber-900/10 text-4xl sm:text-7xl hidden sm:block">⚔️</div>
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 text-amber-900/10 text-3xl sm:text-5xl hidden sm:block">🛡️</div>
-      </div>
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12 relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/images/map-login-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Dark overlay over map */}
+      <div className="absolute inset-0 bg-stone-950/78 pointer-events-none" />
+
+      {/* Subtle vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%)" }} />
 
       <div className="max-w-md w-full text-center relative z-10">
         {/* Crown */}
