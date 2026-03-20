@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cases } from "./data/cases";
 import type { Choice } from "./data/cases";
 import { StatsBar } from "./components/StatsBar";
@@ -28,6 +28,15 @@ export default function App() {
   const [currentCase, setCurrentCase] = useState(0);
   const [stats, setStats] = useState(INITIAL_STATS);
   const [choiceIndices, setChoiceIndices] = useState<number[]>([]);
+  const [mapOpen, setMapOpen] = useState(false);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMapOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   function handleLogin(name: string) {
     setPlayerName(name);
@@ -118,46 +127,54 @@ export default function App() {
             </h1>
             <p className="text-stone-600 text-[10px] sm:text-xs mt-0.5 font-serif truncate">{playerName}</p>
           </div>
-          {/* Live map thumbnail — parchment frame */}
+          {/* Live map thumbnail — parchment frame, clickable */}
           <div className="w-12 sm:w-16 shrink-0 flex flex-col items-center gap-0.5">
-            <div
-              style={{
-                padding: "3px",
-                background: "linear-gradient(135deg, #6b4a0e 0%, #c9942a 40%, #a0721a 60%, #6b4a0e 100%)",
-                borderRadius: "4px",
-                boxShadow: "0 0 0 1px #3d2a08, 2px 3px 10px rgba(0,0,0,0.8), inset 0 0 4px rgba(0,0,0,0.3)",
-              }}
+            <button
+              onClick={() => setMapOpen(true)}
+              title="Виж картата в пълен размер"
+              className="group relative focus:outline-none"
+              style={{ cursor: "zoom-in" }}
             >
               <div
                 style={{
-                  padding: "2px",
-                  background: "linear-gradient(145deg, #e8c97a 0%, #c9a84c 30%, #b8943e 70%, #d4aa60 100%)",
-                  borderRadius: "2px",
-                  boxShadow: "inset 0 1px 3px rgba(0,0,0,0.25)",
+                  padding: "3px",
+                  background: "linear-gradient(135deg, #6b4a0e 0%, #c9942a 40%, #a0721a 60%, #6b4a0e 100%)",
+                  borderRadius: "4px",
+                  boxShadow: "0 0 0 1px #3d2a08, 2px 3px 10px rgba(0,0,0,0.8), inset 0 0 4px rgba(0,0,0,0.3)",
+                  transition: "box-shadow 0.2s",
                 }}
+                className="group-hover:brightness-110"
               >
-                <img
-                  src={liveMap.src}
-                  alt="Карта на царството"
-                  className="block transition-all duration-700"
+                <div
                   style={{
-                    width: "38px",
-                    height: "30px",
-                    objectFit: "cover",
-                    borderRadius: "1px",
-                    filter: "sepia(35%) saturate(1.15) contrast(0.92) brightness(0.95)",
+                    padding: "2px",
+                    background: "linear-gradient(145deg, #e8c97a 0%, #c9a84c 30%, #b8943e 70%, #d4aa60 100%)",
+                    borderRadius: "2px",
+                    boxShadow: "inset 0 1px 3px rgba(0,0,0,0.25)",
                   }}
-                />
+                >
+                  <img
+                    src={liveMap.src}
+                    alt="Карта на царството"
+                    className="block transition-all duration-700"
+                    style={{
+                      width: "38px",
+                      height: "30px",
+                      objectFit: "cover",
+                      borderRadius: "1px",
+                      filter: "sepia(35%) saturate(1.15) contrast(0.92) brightness(0.95)",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+              {/* Zoom hint icon */}
+              <span
+                className="absolute -bottom-0.5 -right-0.5 text-[8px] bg-amber-900/80 text-amber-300 rounded-full w-3 h-3 flex items-center justify-center leading-none pointer-events-none select-none opacity-80 group-hover:opacity-100 transition-opacity"
+              >⊕</span>
+            </button>
             <span
               className="font-serif leading-none"
-              style={{
-                fontSize: "7px",
-                color: "#92711a",
-                fontStyle: "italic",
-                marginTop: "2px",
-              }}
+              style={{ fontSize: "7px", color: "#92711a", fontStyle: "italic", marginTop: "2px" }}
             >{liveMap.year}</span>
           </div>
         </header>
@@ -194,6 +211,63 @@ export default function App() {
           </p>
         </footer>
       </div>
+
+      {/* Map lightbox */}
+      {mapOpen && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center"
+          style={{ background: "rgba(5,3,1,0.92)" }}
+          onClick={() => setMapOpen(false)}
+        >
+          {/* Parchment frame around full map */}
+          <div
+            className="relative mx-4 max-w-2xl w-full"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              padding: "10px",
+              background: "linear-gradient(135deg, #5a3d0a 0%, #c9942a 35%, #a0721a 65%, #5a3d0a 100%)",
+              borderRadius: "8px",
+              boxShadow: "0 0 0 2px #3d2a08, 0 0 40px rgba(0,0,0,0.95), 0 0 80px rgba(0,0,0,0.6)",
+            }}
+          >
+            <div
+              style={{
+                padding: "6px",
+                background: "linear-gradient(145deg, #e8c97a 0%, #c9a84c 30%, #b8943e 70%, #d4aa60 100%)",
+                borderRadius: "4px",
+                boxShadow: "inset 0 2px 8px rgba(0,0,0,0.3)",
+              }}
+            >
+              <img
+                src={liveMap.src}
+                alt="Карта на царството"
+                className="w-full block"
+                style={{
+                  borderRadius: "3px",
+                  filter: "sepia(25%) saturate(1.1) contrast(0.95) brightness(0.98)",
+                  maxHeight: "70vh",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+            {/* Caption */}
+            <div className="text-center mt-2 pb-1">
+              <span className="font-serif italic text-amber-200/70 text-xs tracking-wide">
+                🗺️ Царство България — {liveMap.year}
+              </span>
+            </div>
+            {/* Close button */}
+            <button
+              onClick={() => setMapOpen(false)}
+              className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-stone-900 border-2 border-amber-800/60 text-amber-400 hover:text-amber-200 hover:bg-stone-800 flex items-center justify-center text-sm font-bold transition-all shadow-lg"
+              title="Затвори"
+            >✕</button>
+          </div>
+          <p className="text-stone-600 text-[11px] mt-4 font-serif italic">
+            Натисни навсякъде или Escape за затваряне
+          </p>
+        </div>
+      )}
     </div>
   );
 }
