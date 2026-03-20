@@ -6,7 +6,7 @@ interface CaseCardProps {
   caseData: HistoricalCase;
   caseIndex: number;
   totalCases: number;
-  onChoice: (choice: Choice) => void;
+  onChoice: (choice: Choice, choiceIndex: number) => void;
 }
 
 function EffectBadge({ value, label }: { value: number; label: string }) {
@@ -27,11 +27,13 @@ function EffectBadge({ value, label }: { value: number; label: string }) {
 
 export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCardProps) {
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
+  const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number>(-1);
   const [showOutcome, setShowOutcome] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  function handleSelect(choice: Choice) {
+  function handleSelect(choice: Choice, index: number) {
     setSelectedChoice(choice);
+    setSelectedChoiceIndex(index);
     setShowOutcome(true);
     setTimeout(() => {
       document.getElementById("outcome-panel")?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -39,9 +41,10 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
   }
 
   function handleContinue() {
-    if (selectedChoice) {
-      onChoice(selectedChoice);
+    if (selectedChoice && selectedChoiceIndex >= 0) {
+      onChoice(selectedChoice, selectedChoiceIndex);
       setSelectedChoice(null);
+      setSelectedChoiceIndex(-1);
       setShowOutcome(false);
     }
   }
@@ -161,7 +164,7 @@ export function CaseCard({ caseData, caseIndex, totalCases, onChoice }: CaseCard
               <button
                 key={idx}
                 className="w-full text-left p-4 rounded-lg border border-stone-700/40 bg-stone-900/40 hover:bg-amber-900/20 hover:border-amber-700/40 transition-all duration-200"
-                onClick={() => handleSelect(choice)}
+                onClick={() => handleSelect(choice, idx)}
               >
                 <div className="flex items-start gap-3">
                   <span className="text-amber-500 font-serif font-bold text-lg leading-tight mt-0.5 shrink-0">
