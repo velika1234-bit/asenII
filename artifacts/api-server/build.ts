@@ -2,6 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { build as esbuild } from "esbuild";
 import { rm, readFile } from "fs/promises";
+import { spawn } from "child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,6 +42,9 @@ async function buildAll() {
   const distDir = path.resolve(__dirname, "dist");
   await rm(distDir, { recursive: true, force: true });
 
+  console.log("building frontend...");
+  await runCommand("pnpm", ["--filter", "@workspace/ivan-asen-ii", "run", "build"]);
+
   console.log("building server...");
   const pkgPath = path.resolve(__dirname, "package.json");
   const pkg = JSON.parse(await readFile(pkgPath, "utf-8"));
@@ -66,6 +70,26 @@ async function buildAll() {
     minify: true,
     external: externals,
     logLevel: "info",
+  });
+}
+
+function runCommand(command: string, args: string[]) {
+  return new Promise<void>((resolve, reject) => {
+    const child = spawn(command, args, {
+      cwd: path.resolve(__dirname, "..", ".."),
+      stdio: "inherit",
+      env: process.env,
+    });
+
+    child.on("error", reject);
+    child.on("exit", (code) => {
+      if (code === 0) {
+        resolve();
+        return;
+      }
+
+      reject(new Error(`${command} ${args.join(" ")} exited with code ${code}`));
+    });
   });
 }
 
